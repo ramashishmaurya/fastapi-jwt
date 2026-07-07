@@ -101,3 +101,4 @@ def secure_route(current_user=Depends(verify_token)):
         "message": "Protected Route",
         "user": current_user,
     }
+

@@ -44,3 +44,22 @@ async def get_photo(filename: str):
 
     return FileResponse(file_path)
 
+from fastapi import FastAPI, BackgroundTasks
+ 
+
+@app.post('/uplaod')
+
+def function1():
+    return({
+        'messages' : 'thisis work number 01 '
+    })
+
+async def uploadata(backgroundwork : BackgroundTasks):
+    backgroundwork.add_task(
+        function1 , 
+        print('console is that work 01 ')
+    )
+
+    return ({'messages': 'all the task is completed work'})
+
+

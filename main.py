@@ -40,7 +40,3 @@ def getdatar(user_id : int , db: Session = Depends(get_db)):
 def deleteusers(user_id : int  , db : Session = Depends(get_db)):
     return deleteuser(db , user_id)
 
-
-
-
-
