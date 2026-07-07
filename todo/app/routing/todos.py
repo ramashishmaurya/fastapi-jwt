@@ -3,15 +3,17 @@ from app.models.todos import CreateTodo
 from app.database.db import get_db 
 from sqlalchemy.orm import Session
 from typing import Annotated
+from app.models.auth import Authuser
 from app.models.todos import CreateTodo
 from app.schema.todo_schema import  TodoSchema
-router  = APIRouter(prefix='/todo')
+from app.depedencies import authentucate_user
+router  = APIRouter(prefix='/todo' , dependencies=[Depends(authentucate_user)])
 
 @router.get("/")
-def index(db:Annotated[Session , Depends(get_db)]):
+def index(db:Annotated[Session , Depends(get_db)] , authuser:Annotated[Authuser , Depends(authentucate_user)]):
     todo = db.query(TodoSchema).all()
     return({
-        "all data" : todo
+        "authentization" : authuser
     })
 
 @router.post("/")

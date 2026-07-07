@@ -1,22 +1,23 @@
 from fastapi import APIRouter , Depends 
-from app.models.users import student
+from app.models.users import student , StudentResponse
 
 from app.database.db import get_db
 from typing import Annotated 
 from app.schema.user_schema import UserSchema
-
+from app.helper import hash_password
 from sqlalchemy.orm import Session
 
 router = APIRouter(prefix="/user")
 
-@router.get('/')
+@router.get("/")
 def getinfo(db:Annotated[Session , Depends(get_db)]):
     user = db.query(UserSchema).all()
-    return({'message':user})
+    return user
+
 
 @router.post("/")
 def store(items :student , db:Annotated[Session , Depends(get_db)]):
-    user = UserSchema(email =items.email , password = items.password , id = items.id)
+    user = UserSchema(name = items.name , email =items.email , password = hash_password(items.password ))
     db.add(user)
     db.commit()
     db.refresh(user)
