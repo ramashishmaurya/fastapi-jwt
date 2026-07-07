@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request  , Depends
 from typing import Annotated
-from app.routing import todos
+from app.routing import todos , users
 
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -18,6 +18,8 @@ app = FastAPI()
 # include all routes here 
 # customize rthe exception right that other can understand 
 app.include_router(todos.router)
+
+app.include_router(users.router)
 
 @app.exception_handler(RequestValidationError) # 
 async def validation_exception_handler(request : Request, exe : RequestValidationError):
