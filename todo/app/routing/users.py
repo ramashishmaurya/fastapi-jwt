@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 
 router = APIRouter(prefix="/user")
 
+
 @router.get("/")
 def getinfo(db:Annotated[Session , Depends(get_db)]):
     user = db.query(UserSchema).all()

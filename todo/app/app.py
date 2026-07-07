@@ -1,7 +1,9 @@
-from fastapi import FastAPI, Request  , Depends
+import time
+from fastapi import FastAPI, Request  , Depends 
+from fastapi import Request
 from typing import Annotated
 from app.routing import todos , users ,auth
-
+import json
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from app.config.app_config import getappconfig
@@ -13,6 +15,21 @@ load_dotenv()
 
 app = FastAPI()
 
+@app.middleware("http")
+async def user_detail(request: Request, call_next):
+
+    print("PATH:", request.url.path)
+    print("METHOD:", request.method)
+
+    start_time = time.time()
+
+    response = await call_next(request)
+
+    process_time = time.time() - start_time
+
+    print("TIME:", process_time)
+
+    return response
 
 
 # include all routes here 
