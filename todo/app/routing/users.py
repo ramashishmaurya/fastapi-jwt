@@ -53,3 +53,21 @@ def deleteuser(user_id : int , db:Annotated[Session , Depends(get_db)]):
     db.delete(todo)
     db.commit()
     return({'messages' : f"this {user_id} is deleetd suceessfully"})
+
+
+@router.get('/ashish')
+def get_user(
+    skip: int = 0,
+    limit: int = 2,
+    db: Session = Depends(get_db) 
+):
+    user = (
+        db.query(UserSchema)
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
+
+    return user
+
+

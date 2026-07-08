@@ -28,7 +28,7 @@ def login(data:Login , db:Annotated[Session , Depends(get_db)]):
 
     }
 
-    token = CreateAccessTokens(payload)
+    token = CreateAccessTokens(payload) 
     payload["access_token"] = "Bearer  " + token
 
     return({'message':"Login successfully" , "data":payload})
@@ -52,4 +52,6 @@ def register(data:Register , db:Annotated[Session , Depends(get_db)]):
     return({
         'messages' :new_user
     })
+
+
 

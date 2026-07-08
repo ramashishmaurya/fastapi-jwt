@@ -14,7 +14,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
-
 @app.middleware("http")
 async def user_detail(request: Request, call_next):
 
@@ -78,3 +77,5 @@ def getdata():
         "app_name" : config.app_name , 
         "app_env" : config.app_env 
     })
+
+
