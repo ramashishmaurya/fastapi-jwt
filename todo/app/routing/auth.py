@@ -53,5 +53,3 @@ def register(data:Register , db:Annotated[Session , Depends(get_db)]):
         'messages' :new_user
     })
 
-
-

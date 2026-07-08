@@ -78,4 +78,3 @@ def getdata():
         "app_env" : config.app_env 
     })
 
-
